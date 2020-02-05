@@ -26,6 +26,14 @@ namespace goodburgershack
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped<IDbConection>(x=> Create DvConnection());
+            services.AddTransient<BurgerService>();
+            services.AddTransient<BurgerRepository>();
+        }
+        private IDbConnection CreateDvConnection()
+        {
+            var conectionString = Configuration["db:gearhost"];
+            return new MySqlConnection(conectionString);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
